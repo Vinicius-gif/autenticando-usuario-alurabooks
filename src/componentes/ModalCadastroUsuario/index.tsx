@@ -1,6 +1,6 @@
+import { AbBotao, AbCampoTexto, AbModal } from "ds-alurabooks"
+import { useState } from "react"
 import axios from 'axios'
-import { AbBotao, AbCampoTexto, AbModal } from 'ds-alurabooks'
-import { useState } from 'react'
 
 import imagemPrincipal from './assets/login.png'
 
@@ -11,7 +11,7 @@ interface PropsModalCadastroUsuario {
     aoFechar: () => void
 }
 
-const ModalCadastroUsuario = ( {aberta, aoFechar}: PropsModalCadastroUsuario) => {
+const ModalCadastroUsuario = ({ aberta, aoFechar }: PropsModalCadastroUsuario) => {
 
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
@@ -21,7 +21,7 @@ const ModalCadastroUsuario = ( {aberta, aoFechar}: PropsModalCadastroUsuario) =>
     const [senha, setSenha] = useState('')
     const [senhaConfirmada, setSenhaConfirmada] = useState('')
 
-    const aoSubmeterFormulario = (evento: React.FormEvent<HTMLFormElement>) => {
+    const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
         const usuario = {
             nome,
@@ -32,76 +32,76 @@ const ModalCadastroUsuario = ( {aberta, aoFechar}: PropsModalCadastroUsuario) =>
             complemento
         }
 
-    axios.post('POST http://localhost:8000public/registrar', usuario)
-        .then(() => {
-
-            alert('usuario cadastrado com sucesso')
-            setNome('')
-            setEmail('')
-            setEndereco('')
-            setComplemento('')
-            setCep('')
-            setSenha('')
-            setSenhaConfirmada('')
-            aoFechar()
-        })
-        .catch(() => {
-            alert('Algo de errado')
-        });
+        axios.post('http://localhost:8000/public/registrar', usuario)
+            .then(() => {
+                alert('Usuário foi cadastrado com sucesso!')
+                setNome('')
+                setEmail('')
+                setEndereco('')
+                setComplemento('')
+                setCep('')
+                setSenha('')
+                setSenhaConfirmada('')
+                aoFechar()
+            })
+            .catch(() => {
+                alert('OPS! Alguma coisa deu errado!')
+            })
     }
+
     return (<AbModal
         titulo="Cadastrar"
         aberta={aberta}
         aoFechar={aoFechar}
     >
-        <div className='corpoModalCadastro'>
+        <section className="corpoModalCadastro">
             <figure>
-                <img src={imagemPrincipal} alt="Monitor com uma fechadura e uma pessoa com uma chave logo ao lado." />
+                <img src={imagemPrincipal} alt="Pessoa segurando uma chave na frente de uma tela de computador que está exibindo uma fechadura" />
             </figure>
-            <form>
+            <form onSubmit={aoSubmeterFormular}>
                 <AbCampoTexto
+                    label="Nome"
                     value={nome}
-                    label='Nome'
                     onChange={setNome}
                 />
                 <AbCampoTexto
+                    label="E-mail"
                     value={email}
-                    label='E-mail'
                     onChange={setEmail}
+                    type="email"
                 />
                 <AbCampoTexto
+                    label="Endereço"
                     value={endereco}
-                    label='Endereço'
                     onChange={setEndereco}
                 />
                 <AbCampoTexto
+                    label="Complemento"
                     value={complemento}
-                    label='Complemento'
                     onChange={setComplemento}
                 />
                 <AbCampoTexto
+                    label="CEP"
                     value={cep}
-                    label='CEP'
                     onChange={setCep}
                 />
                 <AbCampoTexto
+                    label="Senha"
                     value={senha}
-                    label='Senha'
                     onChange={setSenha}
+                    type="password"
                 />
                 <AbCampoTexto
+                    label="Confirmação da senha"
                     value={senhaConfirmada}
-                    label='Confirmar senha'
                     onChange={setSenhaConfirmada}
+                    type="password"
                 />
-                <footer>
-                    <AbBotao 
-                        texto='Cadastrar' 
-                        onClick={() => aoSubmeterFormulario}
-                    />
-                </footer>
+                <div className="acoes">
+                    <AbBotao texto="Cadastrar" />
+                </div>
             </form>
-        </div>
+        </section>
     </AbModal>)
 }
 
