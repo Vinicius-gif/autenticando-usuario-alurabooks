@@ -13,3 +13,17 @@
   border-bottom: 1px solid #002F52;
   padding: 12px;
 }
+
+.botao-exluir {
+  background-color: red;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  content: 75px 24px;
+  padding: 16px 32px;
+  border: none;
+}
+
+.botao-exluir:hover {
+  background-color: rgb(229, 55, 16);
+}
