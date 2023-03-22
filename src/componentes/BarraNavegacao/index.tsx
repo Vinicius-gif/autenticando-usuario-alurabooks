@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import BotaoNavegacao from "../BotaoNavegacao"
 import ModalCadastroUsuario from "../ModalCadastroUsuario"
 import ModalLoginUsuario from "../ModalLoginUsuario"
@@ -14,12 +14,19 @@ const BarraNavegacao = () => {
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
 
     const token = sessionStorage.getItem('token');
+    const navigate = useNavigate();
 
     const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token != null)
 
     const aoEfetuarLogin = () => {
         setUsuarioEstaLogado(true)
         setModalLoginAberta(false)
+    }
+
+    const efetuarLogout = () => {
+        setUsuarioEstaLogado(false)
+        sessionStorage.removeItem('token')
+        navigate('/')
     }
 
     const acoesQuandoDeslogado = (
@@ -57,6 +64,14 @@ const BarraNavegacao = () => {
     <>
         <li>
             <Link to="/minha-conta/pedidos">Minha Conta</Link> 
+        </li>
+        <li>
+        <BotaoNavegacao
+            texto="Logout"
+            textoAltSrc="Icone representando um usuário"
+            imagemSrc={usuario}
+            onClick={efetuarLogout}
+        />
         </li>
     </>)
 
