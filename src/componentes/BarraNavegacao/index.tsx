@@ -1,5 +1,7 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import http from "../../http"
+import { ICategoria } from "../../interfaces/ICategorias"
 import BotaoNavegacao from "../BotaoNavegacao"
 import ModalCadastroUsuario from "../ModalCadastroUsuario"
 import ModalLoginUsuario from "../ModalLoginUsuario"
@@ -12,6 +14,16 @@ const BarraNavegacao = () => {
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
+
+    const [categorias, setCategorias] = useState<ICategoria[]>([])
+
+    useEffect(() => {
+            http.get<ICategoria[]>('categorias')
+            .then(resposta => {
+                console.log(resposta.data)
+                setCategorias(resposta.data)
+            })
+    }, [])
 
     const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
@@ -86,31 +98,13 @@ const BarraNavegacao = () => {
             <li>
                 <a href="#!">Categorias</a>
                 <ul className="submenu">
-                    <li>
-                        <Link to="/">
-                            Frontend
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/">
-                            Programação
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/">
-                            Infraestrutura
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/">
-                            Business
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/">
-                            Design e UX
-                        </Link>
-                    </li>
+                    {categorias.map(categorias => (
+                        <li key={categorias.id}>
+                            <Link to={`/categorias/${categorias.slug}`}>
+                                {categorias.nome}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </li>
         </ul>
