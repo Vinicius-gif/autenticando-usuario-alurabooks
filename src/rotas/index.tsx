@@ -4,6 +4,7 @@ import PaginaBase from "../paginas/PaginaBase"
 import AreaLogada from "../paginas/AreaLogada"
 import Pedidos from "../paginas/Pedidos"
 import Categoria from "../paginas/Categoria"
+import DetalhesLivro from "../paginas/DetalhesLivro"
 
 
 const Rotas = () => {
@@ -14,6 +15,7 @@ const Rotas = () => {
         <Route path='pedidos' element={<Pedidos />} />
       </Route>
       <Route path="/categorias/:slug" element={<Categoria/>}/>
+      <Route path="/livro/:slug" element={<DetalhesLivro />} />
     </Route>
   </Routes>)
 }
