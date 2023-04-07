@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { ICategoria } from "../../interfaces/ICategorias"
+import { ICategoria } from "../../interfaces/ICategoria"
 import { obterProdutosDaCategoria } from "../../http"
 import CardLivro from "../CardLivro"
 import './ListaLivros.css'
