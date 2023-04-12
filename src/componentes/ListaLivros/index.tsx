@@ -1,37 +1,46 @@
 import { ICategoria } from "../../interfaces/ICategoria"
-import {gql, useQuery} from '@apollo/client'
+import { AbCampoTexto } from "ds-alurabooks"
+import { useEffect, useState } from "react"
+import useLivros from "../../graphql/livros/hooks"
 import CardLivro from "../CardLivro"
 import './ListaLivros.css'
-import { ILivro } from "../../interfaces/ILivro"
+import { useReactiveVar } from "@apollo/client"
+import { FiltroLivrosVar, livrosVar } from "../../graphql/livros/state"
 
 interface ListaLivrosProps {
   categoria: ICategoria
 }
 
-const OBTER_LIVROS = gql`
-    query ObterLivros {
-        livros {
-            id
-            slug
-            titulo
-            imagemCapa
-            opcoesCompra {
-                id
-                preco
-        }
-        }
-    }
-`
+const ListaLivros = ({ categoria }: ListaLivrosProps) => {
 
-const ListaLivros = ({categoria}: ListaLivrosProps) => {
+  const [textoBusca, setTextoDaBusca] = useState('')
 
-  const { data } = useQuery<{livros: ILivro[]}>(OBTER_LIVROS)
+  useEffect(() =>{   
+      FiltroLivrosVar({
+        ...FiltroLivrosVar(),
+        titulo: textoBusca.length >= 3 ? textoBusca : ''
+      })
+  }, [textoBusca])
+
+  FiltroLivrosVar({
+    ...FiltroLivrosVar(),
+    categoria,
+  })
+
+  const livros = useReactiveVar(livrosVar)
+
+  useLivros();
 
   return (
-    <section className="livros">
-      {data?.livros.map(livro => (
-        <CardLivro key={livro.id} livro={livro}/>
+    <section>
+      <form style={{ maxWidth: '80%', margin: '0 auto', textAlign: 'center' }}>
+        <AbCampoTexto value={textoBusca} onChange={setTextoDaBusca} placeholder='Digite o título'/>
+      </form>
+      <div className="livros">
+        {livros.map(livro => (
+        <CardLivro key={livro.id} livro={livro} />
       ))}
+      </div>
     </section>
   )
 }

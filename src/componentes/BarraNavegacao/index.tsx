@@ -9,21 +9,22 @@ import ModalLoginUsuario from "../ModalLoginUsuario"
 import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
+import { gql, useQuery } from "@apollo/client"
+
+const OBTER_CATEGORIAS = gql`
+query obterCategorias {
+    categorias {
+        id
+        nome
+        slug
+    }
+}
+`
 
 const BarraNavegacao = () => {
 
     const [modalCadastroAberta, setModalCadastroAberta] = useState(false)
     const [modalLoginAberta, setModalLoginAberta] = useState(false)
-
-    const [categorias, setCategorias] = useState<ICategoria[]>([])
-
-    useEffect(() => {
-            http.get<ICategoria[]>('categorias')
-            .then(resposta => {
-                console.log(resposta.data)
-                setCategorias(resposta.data)
-            })
-    }, [])
 
     const token = sessionStorage.getItem('token');
     const navigate = useNavigate();
@@ -41,12 +42,14 @@ const BarraNavegacao = () => {
         navigate('/')
     }
 
+    const { data } = useQuery<{ categorias: ICategoria[] }>(OBTER_CATEGORIAS)
+
     const acoesQuandoDeslogado = (
         <>
             <li>
-                <BotaoNavegacao 
-                    texto="Login" 
-                    textoAltSrc="Icone representando um usuário" 
+                <BotaoNavegacao
+                    texto="Login"
+                    textoAltSrc="Icone representando um usuário"
                     imagemSrc={usuario}
                     onClick={() => setModalLoginAberta(true)}
                 />
@@ -64,7 +67,7 @@ const BarraNavegacao = () => {
                     imagemSrc={usuario}
                     onClick={() => setModalCadastroAberta(true)}
                 />
-                <ModalCadastroUsuario 
+                <ModalCadastroUsuario
                     aberta={modalCadastroAberta}
                     aoFechar={() => setModalCadastroAberta(false)}
                 />
@@ -73,19 +76,19 @@ const BarraNavegacao = () => {
     )
 
     const acoesQuandoLogado = (
-    <>
-        <li>
-            <Link to="/minha-conta/pedidos">Minha Conta</Link> 
-        </li>
-        <li>
-        <BotaoNavegacao
-            texto="Logout"
-            textoAltSrc="Icone representando um usuário"
-            imagemSrc={usuario}
-            onClick={efetuarLogout}
-        />
-        </li>
-    </>)
+        <>
+            <li>
+                <Link to="/minha-conta/pedidos">Minha Conta</Link>
+            </li>
+            <li>
+                <BotaoNavegacao
+                    texto="Logout"
+                    textoAltSrc="Icone representando um usuário"
+                    imagemSrc={usuario}
+                    onClick={efetuarLogout}
+                />
+            </li>
+        </>)
 
 
     return (<nav className="ab-navbar">
@@ -98,7 +101,7 @@ const BarraNavegacao = () => {
             <li>
                 <a href="#!">Categorias</a>
                 <ul className="submenu">
-                    {categorias.map(categorias => (
+                    {data?.categorias.map(categorias => (
                         <li key={categorias.id}>
                             <Link to={`/categorias/${categorias.slug}`}>
                                 {categorias.nome}

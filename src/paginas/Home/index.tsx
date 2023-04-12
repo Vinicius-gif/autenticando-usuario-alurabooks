@@ -6,7 +6,6 @@ import LivrosDestaque from "../../componentes/LivrosDestaque"
 import Newsletter from "../../componentes/Newsletter"
 import TagsCategorias from "../../componentes/TagsCategorias"
 import Titulo from "../../componentes/Titulo"
-
 import './Home.css'
 import { obterLivrosDestaque } from "../../http"
 
@@ -19,7 +18,7 @@ const Home = () => {
     return (<section className="home">
         <Banner subtitulo="Encontre em nossa estante o que precisa para seu desenvolvimento!" titulo="Já sabe por onde começar?">
             <form className="buscar">
-                <AbCampoTexto 
+                <AbCampoTexto
                     placeholder="Qual será sua próxima leitura?"
                     value={busca}
                     onChange={setBusca}
@@ -28,10 +27,10 @@ const Home = () => {
                 />
             </form>
         </Banner>
-        <Titulo texto="ÚLTIMOS LANÇAMENTOS"/>
-        <LivrosDestaque livros={lancamentos ?? []}/>
-        <Titulo texto="MAIS VENDIDOS"/>
-        <LivrosDestaque livros={maisVendidos ?? []}/>
+        <Titulo texto="ÚLTIMOS LANÇAMENTOS" />
+        <LivrosDestaque livros={lancamentos ?? []} />
+        <Titulo texto="MAIS VENDIDOS" />
+        <LivrosDestaque livros={maisVendidos ?? []} />
         <TagsCategorias />
         <Newsletter />
     </section>)
