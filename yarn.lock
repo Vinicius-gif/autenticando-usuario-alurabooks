@@ -3906,10 +3906,10 @@
   "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-10.0.0.tgz"
   "version" "10.0.0"
 
-"ds-alurabooks@^0.5.2":
-  "integrity" "sha512-r1z89+ECXZn1OERZNar217qmxQ4yTHqtIczjtee79BYPnUKrXJPOlVe9O2dxufr1k29yh+KMEFB3DIoXUykh9g=="
-  "resolved" "https://registry.npmjs.org/ds-alurabooks/-/ds-alurabooks-0.5.2.tgz"
-  "version" "0.5.2"
+"ds-alurabooks@^0.5.7":
+  "integrity" "sha512-VdxfEZWD/rn3ecFXpYKR8wEursiYT3lwr6RDyAW1cWJIRORPgKj6Br12SfMwTESkWplLYZ2diLlnnc3URwiB7A=="
+  "resolved" "https://registry.npmjs.org/ds-alurabooks/-/ds-alurabooks-0.5.7.tgz"
+  "version" "0.5.7"
   dependencies:
     "styled-components" "^5.3.5"
 

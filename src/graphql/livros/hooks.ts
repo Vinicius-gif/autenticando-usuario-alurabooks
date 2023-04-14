@@ -1,6 +1,6 @@
 import { useQuery, useReactiveVar } from "@apollo/client"
 import { ILivro } from "../../interfaces/ILivro"
-import { OBTER_LIVROS } from "./queries"
+import { OBTER_LIVRO, OBTER_LIVROS } from "./queries"
 import { FiltroLivrosVar, livrosVar } from "./state"
 
 const useLivros = () => {
@@ -18,6 +18,14 @@ const useLivros = () => {
       },
     })
   )
+}
+
+export const useLivro = (slug: string) => {
+  return useQuery<{ livro: ILivro }>(OBTER_LIVRO, {
+      variables: {
+          slug
+      }
+  })
 }
 
 export default useLivros

@@ -5,12 +5,14 @@ import AreaLogada from "../paginas/AreaLogada"
 import Pedidos from "../paginas/Pedidos"
 import Categoria from "../paginas/Categoria"
 import DetalhesLivro from "../paginas/DetalhesLivro"
+import Carrinho from "../paginas/Carrinho"
 
 
 const Rotas = () => {
   return (<Routes>
     <Route path='/' element={<PaginaBase />}>
       <Route path='/' element={<Home />} />
+      <Route path='/minha-sacola' element={<Carrinho />} />
       <Route path='/minha-conta' element={<AreaLogada />} >
         <Route path='pedidos' element={<Pedidos />} />
       </Route>
