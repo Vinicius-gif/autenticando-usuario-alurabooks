@@ -1,14 +1,15 @@
-import { AbBotao } from "ds-alurabooks"
 import { Link } from "react-router-dom"
+import { AbBotao } from "ds-alurabooks"
 import { formatador } from "../../utils/formatador-moeda"
-import { useCarrinho } from "../../graphql/Carrinho/hooks"
+import { useCarrinhoContext } from "../../contextApi/carrinho"
 import TituloPrincipal from "../../componentes/TituloPrincipal"
-import ItemCarrinho from "../../componentes/ItemCarrinho"
+import ItemCarrinho from "./ItemCarrinho"
 
 import './Carrinho.css'
 
 const Carrinho = () => {
-    const { data } = useCarrinho()
+
+    const { carrinho, adicionarItensNoCarrinho } = useCarrinhoContext()
 
     return (<section className="pagina-carrinho">
 
@@ -16,7 +17,7 @@ const Carrinho = () => {
         <div className="conteudo">
             <h4>Itens selecionados</h4>
             <div className="itens">
-                {data?.carrinho?.itens.map((item, index) => 
+                {carrinho?.itens.map((item, index) => 
                     <ItemCarrinho key={index} item={item} />)}  
             </div>
             <div>
@@ -25,7 +26,7 @@ const Carrinho = () => {
             <footer>
                 <ul>
                     <li>Total da compra</li>
-                    <li><strong>{formatador.format(data?.carrinho?.total || 0)}</strong></li>
+                    <li><strong>{formatador.format(carrinho?.total || 0)}</strong></li>
                     <li>
                         <AbBotao texto="Finalizar compra" />
                     </li>

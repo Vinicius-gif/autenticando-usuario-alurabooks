@@ -1,6 +1,6 @@
 import { AbInputQuantidade } from "ds-alurabooks"
-import { IItemCarrinho } from "../../interfaces/IItemCarrinho "
-import { formatador } from "../../utils/formatador-moeda"
+import { IItemCarrinho } from "../../../interfaces/IItemCarrinho "
+import { formatador } from "../../../utils/formatador-moeda"
 
 import lixeira from './assets/lixeira.png'
 import './ItemCarrinho.css'
@@ -34,7 +34,7 @@ const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
                 </ul>
             </div>
             <div className="quantidade">
-                {/* <AbInputQuantidade value={item.quantidade} onChange={() => console.log('[AbInputQuantidade] - onChange')}/> */}
+                <AbInputQuantidade value={item.quantidade} onChange={() => console.log('[AbInputQuantidade] - onChange')}/>
             </div>
             <div>
                 <button className="btn-excluir">
