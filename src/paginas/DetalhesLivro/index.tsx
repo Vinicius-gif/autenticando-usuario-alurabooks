@@ -7,11 +7,15 @@ import { useState } from 'react'
 import Loader from '../../componentes/Loader'
 import BlocoSobre from '../../componentes/BlocoSobre'
 import { useLivro } from '../../graphql/livros/hooks'
+import { useCarrinhoContext } from '../../contextApi/carrinho'
 
 const DetalhesLivro = () => {
   const params = useParams()
 
+  const { adicionarItemCarrinho } = useCarrinhoContext()
+
   const [opcao, setOpcao] = useState<AbGrupoOpcao>()
+  const [quantidade, setQuantidade] = useState(1)
 
   const { data, loading, error } = useLivro(params.slug || '')
 
@@ -29,6 +33,21 @@ const DetalhesLivro = () => {
 
   if (loading) {
     return <Loader />
+  }
+
+  const aoAdicionarItemAoCarrinho = () => {
+    if (!data?.livro) {
+      return
+    }
+    const opcaoCompra = data.livro.opcoesCompra.find(op => op.id === opcao?.id)
+    if (!opcaoCompra) {
+      return
+    }
+    adicionarItemCarrinho({
+      livro: data?.livro,
+      opcaoCompra,
+      quantidade
+    }) 
   }
 
   return (
@@ -53,10 +72,10 @@ const DetalhesLivro = () => {
             <p><strong>*Você terá acesso às futuras atualizações do livro.</strong></p>
             <footer>
               <div className="qtdContainer">
-                <AbInputQuantidade onChange={() => {}} value={1}/>
+                <AbInputQuantidade onChange={setQuantidade} value={quantidade}/>
               </div>
               <div>
-                <AbBotao texto="Comprar" />
+                <AbBotao texto="Comprar" onClick={aoAdicionarItemAoCarrinho}/>
               </div>
             </footer>
           </div>
@@ -66,7 +85,7 @@ const DetalhesLivro = () => {
           <BlocoSobre titulo='Sobre o Livro' corpo={data?.livro.sobre} />
         </div>
         <div className="tags">
-          {data?.livro.tags?.map(tag => <AbTag key={tag.nome} texto={tag.nome} />)}
+          {data?.livro.tags?.map(tag => <AbTag key={tag.nome} texto={tag.nome} contexto='secundario'/>)}
         </div>
       </div>
     </section>
