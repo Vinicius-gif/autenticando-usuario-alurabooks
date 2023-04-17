@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import http from "../../http"
 import { ICategoria } from "../../interfaces/ICategoria"
+import { gql, useQuery } from "@apollo/client"
 import BotaoNavegacao from "../BotaoNavegacao"
 import ModalCadastroUsuario from "../ModalCadastroUsuario"
 import ModalLoginUsuario from "../ModalLoginUsuario"
+import MiniCarrinho from "../MiniCarrinho"
 
 import logo from './assets/logo.png'
 import usuario from './assets/usuario.svg'
 import './BarraNavegacao.css'
-import { gql, useQuery } from "@apollo/client"
 
 const OBTER_CATEGORIAS = gql`
 query obterCategorias {
@@ -47,6 +47,9 @@ const BarraNavegacao = () => {
     const acoesQuandoDeslogado = (
         <>
             <li>
+                <MiniCarrinho/>
+            </li>
+            <li>
                 <BotaoNavegacao
                     texto="Login"
                     textoAltSrc="Icone representando um usuário"
@@ -79,6 +82,9 @@ const BarraNavegacao = () => {
         <>
             <li>
                 <Link to="/minha-conta/pedidos">Minha Conta</Link>
+            </li>
+            <li>
+                <MiniCarrinho />
             </li>
             <li>
                 <BotaoNavegacao

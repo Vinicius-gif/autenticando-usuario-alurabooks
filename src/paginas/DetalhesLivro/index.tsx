@@ -41,6 +41,7 @@ const DetalhesLivro = () => {
     }
     const opcaoCompra = data.livro.opcoesCompra.find(op => op.id === opcao?.id)
     if (!opcaoCompra) {
+      alert('Selecione a opção de compra!')
       return
     }
     adicionarItemCarrinho({

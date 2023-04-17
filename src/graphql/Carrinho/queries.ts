@@ -7,9 +7,11 @@ query ObterCarrinho {
         itens {
             quantidade
             opcaoCompra {
+                id
                 preco
             }
             livro {
+                id
                 titulo
                 descricao
                 imagemCapa
