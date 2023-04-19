@@ -28,3 +28,9 @@ export const ADICIONAR_ITEM = gql`
         adicionarItem(item: $item) 
     }
 `
+
+export const REMOVER_ITEM = gql`
+    mutation RemoverItem($item: ItemCarrinhoInput!) {
+        removerItem(item: $item)
+    }
+`

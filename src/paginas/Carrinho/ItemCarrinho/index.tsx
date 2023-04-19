@@ -10,12 +10,20 @@ interface ItemCarrinhoProps {
     item: IItemCarrinho
 }
 
-const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
+const ItemCarrinho = ({ item }: ItemCarrinhoProps) => {
 
-    const { adicionarItemCarrinho } = useCarrinhoContext()
+    const { adicionarItemCarrinho, removerItemCarrinho } = useCarrinhoContext()
 
     const alterarQuantidadeDoItem = (quantidade: number) => {
-                console.log(item)
+
+        if (quantidade === 0) {
+            removerItemCarrinho({
+                livro: item.livro,
+                opcaoCompra: item.opcaoCompra,
+                quantidade
+            })
+        }
+        
         adicionarItemCarrinho({
             livro: item.livro,
             opcaoCompra: item.opcaoCompra,
@@ -47,13 +55,13 @@ const ItemCarrinho = ({ item } : ItemCarrinhoProps) => {
                 </ul>
             </div>
             <div className="quantidade">
-                <AbInputQuantidade 
-                    value={item.quantidade} 
+                <AbInputQuantidade
+                    value={item.quantidade}
                     onChange={alterarQuantidadeDoItem}
                 />
             </div>
             <div>
-                <button className="btn-excluir">
+                <button className="btn-excluir" onClick={() => removerItemCarrinho(item)}>
                     <img src={lixeira} alt="Ícone de uma lixeira" />
                 </button>
             </div>

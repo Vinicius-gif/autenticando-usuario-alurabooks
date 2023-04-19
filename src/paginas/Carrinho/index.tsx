@@ -9,7 +9,7 @@ import './Carrinho.css'
 
 const Carrinho = () => {
 
-    const { carrinho, adicionarItemCarrinho } = useCarrinhoContext()
+    const { carrinho } = useCarrinhoContext()
 
     return (<section className="pagina-carrinho">
 
