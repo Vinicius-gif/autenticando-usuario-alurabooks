@@ -23,7 +23,7 @@ const ItemCarrinho = ({ item }: ItemCarrinhoProps) => {
                 quantidade
             })
         }
-        
+
         adicionarItemCarrinho({
             livro: item.livro,
             opcaoCompra: item.opcaoCompra,

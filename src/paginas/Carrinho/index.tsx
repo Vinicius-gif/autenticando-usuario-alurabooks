@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { AbBotao } from "ds-alurabooks"
 import { formatador } from "../../utils/formatador-moeda"
 import { useCarrinhoContext } from "../../contextApi/carrinho"
+import LoadingCarrinho from "../../componentes/LoadingCarrinho"
 import TituloPrincipal from "../../componentes/TituloPrincipal"
 import ItemCarrinho from "./ItemCarrinho"
 
@@ -9,10 +10,10 @@ import './Carrinho.css'
 
 const Carrinho = () => {
 
-    const { carrinho } = useCarrinhoContext()
+    const { carrinho, carregando } = useCarrinhoContext()
 
     return (<section className="pagina-carrinho">
-
+        {carregando && <LoadingCarrinho/>}
         <TituloPrincipal texto="Minha sacola" />
         <div className="conteudo">
             <h4>Itens selecionados</h4>
